@@ -21,10 +21,8 @@ const { render } = require("wolt");
 
 using with express.js:
 ```jsx
-const express = require("express")();
 const { render } = require("wolt");
-
-const app = express();
+const app = require("express")();
 
 app.get("/", async (req, res)=>{
   res.send(await render("index.jsx", {name: "John"}))
