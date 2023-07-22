@@ -2,7 +2,9 @@
 
 ### Installation
 
-`npm install wolt`
+```shell
+npm install wolt
+```
 
 ### Example 
 
