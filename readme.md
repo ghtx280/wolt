@@ -46,7 +46,8 @@ As you can see, we simply write regular HTML tags inside JS code. Data is substi
 Inside `{...}` you can put any JS expression:
 
 ```jsx
-let add = (a, b) => a + b
+let add = (a, b) => a + b;
+
 <p>some text { add() * 2 } foo baz</p> 
 ```
 
