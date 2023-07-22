@@ -48,7 +48,7 @@ Inside `{...}` you can put any JS expression:
 ```jsx
 let add = (a, b) => a + b;
 
-<p>some text { add() * 2 } foo baz</p> 
+<p>foo { add(5, 6) * 2 } baz</p> // foo 22 baz
 ```
 
 ### Conditions and loops
@@ -64,6 +64,7 @@ for (const i of arr) {
   <p>item is {i}</p>
 }
 ```
+You can write any JS, everything will work
 
 ### Multiline text
 
@@ -71,8 +72,8 @@ Wrap text in backticks to split it into multiple lines:
 
 ```jsx
 <p>
-  `Hello, my name is John.
-  I live in London.` 
+  `Hello, my name is {user.name}.
+  I live in {user.city}.` 
 </p>
 ```
 
