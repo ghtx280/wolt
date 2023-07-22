@@ -7,15 +7,6 @@ npm install wolt
 ```
 
 ### Example 
-
-Template:
-
-```jsx
-// index.jsx
-
-<h1>Hello, {name}!</h1>
-```
-
 app.js:
 
 ```jsx
@@ -43,7 +34,13 @@ app.listen(8080);
 
 // <h1>Hello, John!</h1> 
 ```
+Template:
 
+```jsx
+// index.jsx
+
+<h1>Hello, {name}!</h1>
+```
 As you can see, we simply write regular HTML tags inside JS code. Data is substituted via `{...}` placeholders.
 
 ### Expression interpolation
@@ -63,7 +60,7 @@ if (user) {
   <h2>My name is {user.name}, I'm {user.age} y.o.</h2>
 }
 
-for(let i of arr) {
+for (const i of arr) {
   <p>item is {i}</p>
 }
 ```
@@ -78,7 +75,6 @@ Wrap text in backticks to split it into multiple lines:
   I live in London.` 
 </p>
 ```
-Ок, добавлю информацию о встроенных хелперах в README:
 
 ## Helpers
 
