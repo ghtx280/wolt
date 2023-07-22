@@ -123,5 +123,11 @@ $timeout(1000); // wait 1 second
 <p>Done!</p>
 ```
 ***
+## Client rendering
+Server return <script> that render in browser
+```jsx
+await render(file, data, { mode: "client" });
+```
+***
 ## License
 WoltJs is released under the MIT License.
