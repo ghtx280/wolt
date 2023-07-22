@@ -77,6 +77,52 @@ Wrap text in backticks to split it into multiple lines:
 </p>
 ```
 
+## Components
+
+You can use the special `<inc>` tag to insert code from another file.
+
+```jsx
+<inc href="product.jsx"/>
+```
+
+If it is a `jsx` file and it is located in the `same folder`, then you can use the short version, just the file name with a capital letter.
+
+```jsx
+<Product/>
+```
+
+### Slot
+
+You can transfer content to another file.
+
+```jsx
+<inc href="product.jsx">some content</inc>
+// or
+<Product>some content</Product>
+```
+
+```jsx 
+// product.jsx
+<h1>{$slot}</h1> // $slot will be replaced to 'some content'
+```
+
+### Props
+
+You can also pass some parameters to another file.
+
+```jsx
+<inc href="product.jsx" name="{user.name}" age="{user.age}"/>
+// or
+<Product name={user.name} age={user.age}/>
+// or
+<Product {...user}/> // to transfer the whole object
+```
+
+```jsx 
+// product.jsx
+<h1>My name name is {$prop.name}, I'm {$prop.age} y.o.</h1>
+```
+
 ## Helpers
 
 wolt.js includes some handy helpers you can use in templates:
