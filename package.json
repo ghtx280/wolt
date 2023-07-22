@@ -1,0 +1,29 @@
+{
+  "name": "wolt",
+  "version": "1.0.0",
+  "description": "minimalist template engine for Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghtx280/wolt.git"
+  },
+  "keywords": [
+    "template engine",
+    "template",
+    "nodejs",
+    "node",
+    "js",
+    "express",
+    "wolt",
+    "woltjs"
+  ],
+  "author": "ghtx280",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ghtx280/wolt/issues"
+  },
+  "homepage": "https://github.com/ghtx280/wolt#readme"
+}

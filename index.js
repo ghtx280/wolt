@@ -1,6 +1,11 @@
-const fs = require("fs");
+/* ATTENTION!!!
+This code looks bad and will be rewritten (the functionality will not change),
+but it is usable now.
+If you find any errors, please report them in issues :) */
+
+const fs   = require("fs");
 const path = require("path");
-const url = require("url");
+const url  = require("url");
 
 const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
 
