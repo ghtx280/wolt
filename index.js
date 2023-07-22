@@ -130,7 +130,7 @@ function parse_template(input) {
 async function render(file, data = {}, opt = {}) {
   if (!file) file = "index.html";
 
-  const filePath = path.join(__dirname, file);
+  const filePath = path.join(process.cwd(), file);
 
   try {
     let html = fs.readFileSync(filePath, "utf8");
@@ -201,7 +201,7 @@ async function render(file, data = {}, opt = {}) {
       return content;
     }
 
-    html = setInc(__dirname, html);
+    html = setInc(process.cwd(), html);
 
     const helpers = {
       $html: "",
