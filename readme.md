@@ -95,7 +95,7 @@ If it is a `jsx` file and it is located in the `same folder`, then you can use t
 
 You can transfer content to another file.
 
-```jsx
+```html
 <inc href="product.jsx">some content</inc>
 // or
 <Product>some content</Product>
