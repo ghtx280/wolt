@@ -61,16 +61,16 @@ function parse_template(input) {
     return match.replace(/\s+/g, " ").trim();
   });
 
-  let sc_count = 0;
+  let sc_count = 0; // scropt tags
   let sc_matches = [];
   input = input.replace(/(<script.*?>)(.*?)<\/script>/gs, (match, tag, js) => {
-    let key = `@@RB${sc_count}@@`;
+    let key = `@@SC${sc_count}@@`;
     sc_matches.push({ key, js, match });
     sc_count++;
     return key;
   });
 
-  let rb_count = 0;
+  let rb_count = 0; // round breckets
   let rb_matches = [];
   input = input.replace(/(\$)?\(\s*(<.+?>)\s*\)/gs, (match, add, cnt) => {
     let key = `@@RB${rb_count}@@`;
@@ -83,7 +83,7 @@ function parse_template(input) {
     return key;
   });
 
-  let bq_count = 0;
+  let bq_count = 0; // backquotes
   let bq_matches = [];
   input = input.replace(/^\s*`\s*([\S\s]+?)\s*`\s*$/gm, (match, cnt) => {
     let key = `@@BQ${bq_count}@@`;
@@ -204,8 +204,8 @@ async function render(file, data = {}, opt = {}) {
     html = setInc(process.cwd(), html);
 
     const helpers = {
-      $html: "",
-      $: (ctx) => ($html += ctx),
+      // $html: "",
+      $: (ctx) => $html += ctx,
       $_: (ctx) => ctx,
       $timeout: (ms) => new Promise((resolve) => setTimeout(resolve, ms)),
       $fetch: {
@@ -251,8 +251,8 @@ async function render(file, data = {}, opt = {}) {
 
       if (opt?.mode === "client") {
         html = `<script>
-        
-          (async($helpers,$data)=>{
+          let $html = "";
+          (async function($helpers,$data){
             document.currentScript.remove()
             ${raw}
             document.write($html)
@@ -262,12 +262,15 @@ async function render(file, data = {}, opt = {}) {
           )
         </script>`.replace(/^\s+/gm, "");
       } else {
-        if (opt?.raw !== "all")
+        if (opt?.raw !== "all") {
           html = await new AsyncFunction(
-            "$helpers",
-            "$data",
-            raw + "\nreturn $html"
-          )(helpers, data);
+            `let $html = "";
+            const $helpers = ${obj_to_str(helpers)};
+            const $data = ${obj_to_str(data)};
+            ${raw}
+            ;return $html`
+          )()
+        }
         if (opt?.raw === "all") html = raw;
         if (opt?.raw === "add") html += `\n<!--\n${raw}\n-->`;
       }
