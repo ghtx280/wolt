@@ -6,7 +6,10 @@
 ```shell
 npm install wolt
 ```
-
+Started template (recommended): 
+```shell
+npx wolt@latest
+```
 ### Example 
 app.js:
 
