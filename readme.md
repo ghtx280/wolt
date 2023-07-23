@@ -1,4 +1,5 @@
-## wolt.js is a minimalist template engine for Node.js. It allows you to write HTML code directly inside JavaScript.
+## WOLT - minimalist template engine for Node.js.   
+### It allows you to write HTML code directly inside JavaScript. (like jsx)
 
 ### Installation
 
@@ -16,7 +17,7 @@ const { render } = require("wolt");
   let html = await render("index.jsx", {name: "John"});
 })()
 
-// <h1>Hello, John!</h1> 
+// <h1>Hello, John</h1> 
 ```
 
 using with express.js:
@@ -30,14 +31,14 @@ app.get("/", async (req, res)=>{
 
 app.listen(8080);
 
-// <h1>Hello, John!</h1> 
+// <h1>Hello, John</h1> 
 ```
 Template:
 
 ```jsx
 // index.jsx
 
-<h1>Hello, {name}!</h1>
+<h1>Hello, {name}</h1>
 ```
 As you can see, we simply write regular HTML tags inside JS code. Data is substituted via `{...}` placeholders.
 
@@ -51,25 +52,47 @@ let add = (a, b) => a + b;
 <p>foo { add(5, 6) * 2 } baz</p> // foo 22 baz
 ```
 
-### Conditions and loops
+### Conditions, loops and other
 
 Use native syntax:
 
 ```jsx
+// conditions
 if (user) {
   <h2>My name is {user.name}, I'm {user.age} y.o.</h2>
 }
 
+// loop
 for (const i of arr) {
   <p>item is {i}</p>
 }
+
+// funtion
+function foo(cnt) {
+  <p>{cnt}</p>
+}
+foo("hello")
+foo("world")
+
+// using variables
+let link_about = (<a href="/about">about</a>) // html needs to be wrapped in (...) to convert to string only
+<p>
+  $(link_about) // $(...) will replace and add to the main html 
+</p>
+
 ```
 You can write any JS, everything will work
 
 ### Multiline text
 
-Wrap text in backticks to split it into multiple lines:
-
+You cannot simply move the tag content to a new line because the script processes the code line by line:
+```jsx
+<p>
+  hello 
+</p>
+// hello is not defined
+```
+To make multiline content, wrap your content in backticks:
 ```jsx
 <p>
   `Hello, my name is {user.name}.
