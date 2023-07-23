@@ -108,7 +108,7 @@ You can use the special `<inc>` tag to insert code from another file.
 <inc href="product.jsx"/>
 ```
 
-If it is a `jsx` file and it is located in the `same folder`, then you can use the short version, just the file name with a capital letter.
+If it is a `jsx` file and it is located in the same folder, then you can use the short version, just the file name with a capital letter (the file itself should be lowercase, like `product.jsx`).
 
 ```jsx
 <Product/>
@@ -119,13 +119,13 @@ If it is a `jsx` file and it is located in the `same folder`, then you can use t
 You can transfer content to another file.
 
 ```html
-<inc href="product.jsx">some content</inc>
+<inc href="text.jsx">some content</inc>
 // or
-<Product>some content</Product>
+<Text>some content</Text>
 ```
 
 ```jsx 
-// product.jsx
+// text.jsx
 <h1>{$slot}</h1> // $slot will be replaced to 'some content'
 ```
 
@@ -134,15 +134,15 @@ You can transfer content to another file.
 You can also pass some parameters to another file.
 
 ```jsx
-<inc href="product.jsx" name="{user.name}" age="{user.age}"/>
+<inc href="user.jsx" name="{user.name}" age="{user.age}"/>
 // or
-<Product name={user.name} age={user.age}/>
+<User name={user.name} age={user.age}/>
 // or
-<Product {...user}/> // to transfer the whole object
+<User {...user}/> // to transfer the whole object
 ```
 
 ```jsx 
-// product.jsx
+// User.jsx
 <h1>My name name is {$prop.name}, I'm {$prop.age} y.o.</h1>
 ```
 
@@ -187,7 +187,7 @@ for(let user of data) {
 Delays execution:
 
 ```jsx
-$timeout(1000); // wait 1 second
+await $timeout(1000); // wait 1 second
 
 <p>Done!</p>
 ```
