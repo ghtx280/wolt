@@ -3,3 +3,4 @@ package-lock.json
 *.jsx
 *.html
 app.js
+!starter/*
