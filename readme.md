@@ -192,6 +192,72 @@ await $timeout(1000); // wait 1 second
 <p>Done!</p>
 ```
 ***
+## Using router
+Wolt has a router based on expressjs.   
+To use it, first install expressjs `npm i express`.    
+You also need to have a special structure.
+```
+pages
+├─ index.jsx
+├─ about.jsx
+└─ user.jsx  
+app.html
+app.js
+```
+
+There must be 1 `index.html` file, it is a wrapper for pages (`pages/*`), it contains an inc tag with a special key `$page`, it will be replaced with the desired page.
+```html
+<html>
+  <head></head>
+  <body>
+    <inc href="pages/$page"/>
+  </body>
+</html
+```
+
+Add the following code to `app.js`:
+```js
+const { router } = require('./index.js');
+const app = require('express')();
+
+router(app, {
+  "/": function(req, res) {
+    return { page: "index.jsx" }
+  },
+  "/about": function(req, res) {
+    return { page: "about.jsx", data: { cnt: "about page" } }
+  },
+  "/user/:id": function(req, res) {
+    return { page: "user.jsx" }
+  }
+})
+
+app.listen(8080)
+```
+Instead of `function(req, res) {...}` you can use string `"index.jsx"`, this entry is recommended if your script does not provide any parameters other than `page: "..."`
+```js
+router(app, {
+  "/": "index.jsx",
+  "/about": "about.jsx",
+  "/user/:id": "user.jsx"
+})
+```
+
+When using a router, you have access to additional helpers:
+
+- $page - the page you passed in the object, for example: `"about.jsx"`
+- $path - the current url path, for example: `"user/10"`
+- $slug - dynamic parameters from the url, for example: `{ id: 10 }`
+
+So you can write some such template in `user.jsx`:
+
+```jsx
+let user = await $fetch.json('/api/user/' + $slug.id);
+
+<p>{user.name}</p>
+``` 
+
+***
 ## Client rendering
 Server return <script> that render in browser
 ```jsx
