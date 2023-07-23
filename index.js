@@ -242,7 +242,8 @@ async function render(file, data = {}, opt = {}) {
           if (typeof value === "function") {
             return `@_FUNC_@${value
               .toString()
-              .replace(/\s*[\r\n]\s*/g, ";")}@_FUNC_@`;
+              .replace(/\s*[\r\n\t]\s*/g, "")
+            }@_FUNC_@`;
           }
           return value;
         }).replace(/"?@_FUNC_@"?/g, "");
@@ -250,7 +251,9 @@ async function render(file, data = {}, opt = {}) {
 
       if (opt?.mode === "client") {
         html = `<script>
+        
           (async($helpers,$data)=>{
+            document.currentScript.remove()
             ${raw}
             document.write($html)
           })(
