@@ -1,27 +1,19 @@
 ## WOLT - minimalist template engine for Node.js.   
-### It allows you to write HTML code directly inside JavaScript. (like jsx)
+### It allows you to write HTML code directly inside JavaScript (like jsx).
 
 ### Installation
 
-```shell
-npm install wolt
-```
 Started template (recommended): 
 ```shell
 npx wolt@latest
 ```
+or just wolt package
+```shell
+npm install wolt
+```
+
 ### Example 
 app.js:
-
-```jsx
-const { render } = require("wolt");
-
-(async () => {
-  let html = await render("index.jsx", {name: "John"});
-})()
-
-// <h1>Hello, John</h1> 
-```
 
 using with express.js:
 ```jsx
@@ -29,12 +21,11 @@ const { render } = require("wolt");
 const app = require("express")();
 
 app.get("/", async (req, res)=>{
-  res.send(await render("index.jsx", {name: "John"}))
+  const html = await render("index.jsx", {name: "John"})
+  res.send(html)
 })
 
 app.listen(8080);
-
-// <h1>Hello, John</h1> 
 ```
 Template:
 
@@ -42,6 +33,8 @@ Template:
 // index.jsx
 
 <h1>Hello, {name}</h1>
+
+// <h1>Hello, John</h1> 
 ```
 As you can see, we simply write regular HTML tags inside JS code. Data is substituted via `{...}` placeholders.
 
@@ -220,7 +213,7 @@ There must be 1 `index.html` file, it is a wrapper for pages (`pages/*`), it con
 
 Add the following code to `app.js`:
 ```js
-const { router } = require('./index.js');
+const { router } = require('wolt');
 const app = require('express')();
 
 router(app, {
