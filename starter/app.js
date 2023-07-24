@@ -1,16 +1,14 @@
-const { render } = require('wolt');
+const { render, run_msg } = require('wolt');
 const app = require('express')();
 
 app.get("/", async (req, res) => {
-  res.send(await render("index.jsx",{
-    app_name: "Wolt",
-    rand_num: Math.floor(Math.random() * 1000)
-  }))
+  res.send(
+    await render("index.jsx", { app_name: "Wolt" })
+    //               ^                ^ 
+    //              file             data
+  )
 })
 
-
-app.listen(7500, ()=>{
-  console.clear(); 
-  console.log('\x1b[33m%s\x1b[0m', 'Wolt is running!');
-  console.log('\x1b[36m%s\x1b[0m','http://localhost:7500');
+app.listen(7500, ()=> {
+  run_msg({open: true, port: 7500})
 })

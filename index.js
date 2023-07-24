@@ -307,4 +307,17 @@ async function router(app, paths) {
   }
 }
 
-module.exports = { render, router };
+function run_msg(p = {}) {
+  const port = p.port || 7500
+  const open = p.open || false
+  const host = `http://localhost:${port}`
+  console.clear(); 
+  console.log('\x1b[33m%s\x1b[0m', 'Wolt is running!');
+  console.log('\x1b[36m%s\x1b[0m', host);
+  if (open) {
+    const start = (process.platform == 'darwin'? 'open': process.platform == 'win32'? 'start': 'xdg-open');
+    require('child_process').exec(start + ' ' + host);
+  }
+}
+
+module.exports = { render, router, run_msg };

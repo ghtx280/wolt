@@ -33,14 +33,13 @@ async function copyFolder(srcDir, destDir) {
 
 async function main() {
   try {
-    await copyFolder(templateDir, projectDir);
-    console.log("Starter template copied");
-    
-    console.clear()
     console.log('Installing....');
-    await exec("npm i express nodemon")
+    await exec("npm i express nodemon wolt")
 
-
+    await copyFolder(templateDir, projectDir);
+    console.log("Starter template copied!");
+    
+    
     let pkg = fs.readFileSync(projectDir + '/package.json');
     pkg = JSON.parse(pkg);
     if (!pkg.scripts) pkg.scripts = {};
