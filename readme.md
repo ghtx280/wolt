@@ -3,13 +3,13 @@
 
 ### Installation
 
-Starter template (recommended): 
+Starter template (RECOMMENDED): 
 ```shell
-npx wolt@latest
+npm i wolt; npx wolt@latest
 ```
 or just wolt package
 ```shell
-npm install wolt
+npm i wolt
 ```
 
 ### Example 
