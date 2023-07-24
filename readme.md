@@ -44,7 +44,7 @@ At the heart of `wolt` is a very simple compiler, in short, it converts HTML tag
 You can use `{...}' anywhere in the tags, for example, to make dynamic tag names:
 
 ```perl
-<{tag}>Hello, {name}/{tag}>
+<{tag}>Hello, {name}</{tag}>
 ```
 Inside `{...}` you can put any JS expression:
 
