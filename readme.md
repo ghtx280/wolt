@@ -34,8 +34,6 @@ Template:
 // index.jsx
 
 <h1>Hello, {name}</h1>
-
-// <h1>Hello, John</h1> 
 ```
 As you can see, we simply write regular HTML tags inside JS code. Data is substituted via `{...}` placeholders.
 
