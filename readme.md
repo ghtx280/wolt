@@ -3,7 +3,7 @@
 
 ### Installation
 
-Started template (recommended): 
+Starter template (recommended): 
 ```shell
 npx wolt@latest
 ```
