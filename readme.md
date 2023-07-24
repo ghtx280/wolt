@@ -13,10 +13,11 @@ npm i wolt
 ```
 
 ### Example 
-app.js:
 
 using with express.js:
 ```jsx
+// app.js
+
 const { render } = require("wolt");
 const app = require("express")();
 
