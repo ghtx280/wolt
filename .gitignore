@@ -3,4 +3,5 @@ package-lock.json
 *.jsx
 *.html
 app.js
+trash.js
 !starter/*

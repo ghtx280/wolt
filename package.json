@@ -1,6 +1,6 @@
 {
   "name": "wolt",
-  "version": "1.0.7",
+  "version": "1.2.0",
   "description": "minimalist template engine for Node.js",
   "main": "index.js",
   "bin": {
