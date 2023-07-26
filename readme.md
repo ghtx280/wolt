@@ -89,6 +89,20 @@ let link_about = (<a href="/about">about</a>) // html needs to be wrapped in (..
 </p>
 ```
 
+#### Update!
+You can now pass data to the script with `'% data %'`, only single or double quotes can be used before and after the % signs.
+```html
+<script>
+  alert("'% some_data %'") // `alert("${ some_data }")`
+</script>
+```
+In JSX files syntax is not highlighted inside the script tag, to avoid this you can use special tags.
+```jsx
+{"script"}
+  alert("'% some_data %'") // `alert("${ some_data }")`
+{"/script"}
+```
+
 ### Multiline text
 
 You cannot simply move the tag content to a new line because the script processes the code line by line:
@@ -136,6 +150,14 @@ or
 // text.jsx
 <h1>{$slot}</h1> // $slot will be replaced to 'some content'
 ```
+#### Update!
+Now the slot can be multi-line
+```jsx
+<inc href="file.jsx">
+  multi line
+  text
+</inc>
+```
 
 ### Props
 
@@ -156,12 +178,16 @@ or
 // user.jsx
 <h1>My name name is {$prop.name}, I'm {$prop.age} y.o.</h1>
 ```
-
-
-
-
-
-
+#### Update!
+There are 2 types of writing props:
+- ```jsx
+  <inc user_id="user_{id}">
+  ```
+  Is converted to ``` `user_${id}` ```, which always returns the string
+- ```jsx
+  <inc user_id={`user_${id}`}>
+  ```
+  When using this type, you can transfer data of any type
 
 
 
@@ -174,9 +200,9 @@ wolt includes some handy helpers you can use in templates:
 Accumulates final HTML output:
 
 ```jsx
-$html += '<div>';
-$html += 'Hello';
-$html += '</div>';
+$html += (<div>)
+$html += 'Hello'
+$html += (</div>)
 ```
 
 ### $
@@ -184,9 +210,9 @@ $html += '</div>';
 Alias for $html to append to HTML output:
 
 ```jsx
-$('<div>');
-$('Hello'); 
-$('</div>');
+$(<div>)
+$(Hello)
+$(</div>)
 ```
 
 ### $fetch
@@ -210,6 +236,34 @@ await $timeout(1000); // wait 1 second
 
 <p>Done!</p>
 ```
+
+#### Update!
+Usually, to split a tag into several lines, back quotes are used
+```jsx
+<p>
+  `multi-line`
+</p>
+```
+But now you can use the $(...) helper
+```jsx
+$(<div>
+  text
+  <a href="#{product.hash}">
+    link
+  </a>
+  <span>{some_variable}</span>
+  foo baz
+</div>)
+```
+You can also use components inside this helper, the component must be wrapped in {...}
+```jsx
+$(<div>
+  {<inc href="file.jsx" />}
+  or
+  {<File />}
+</div>);
+```
+
 ***
 ## Using router
 Wolt has a router based on expressjs.   
