@@ -1,40 +1,32 @@
 ## WOLT - minimalist template engine for Node.js.   
-### It allows you to write HTML code directly inside JavaScript. (like jsx)
+### It allows you to write HTML code directly inside JavaScript (like jsx).
 
 ### Installation
 
-```shell
-npm install wolt
+Starter template (RECOMMENDED): 
 ```
-Started template (recommended): 
-```shell
-npx wolt@latest
+npm i wolt; npx wolt
 ```
+or just wolt package
+```shell
+npm i wolt
+```
+
 ### Example 
-app.js:
-
-```jsx
-const { render } = require("wolt");
-
-(async () => {
-  let html = await render("index.jsx", {name: "John"});
-})()
-
-// <h1>Hello, John</h1> 
-```
 
 using with express.js:
 ```jsx
+// app.js
+
 const { render } = require("wolt");
 const app = require("express")();
 
 app.get("/", async (req, res)=>{
-  res.send(await render("index.jsx", {name: "John"}))
+  const html = await render("index.jsx", {name: "John"})
+  res.send(html)
 })
 
 app.listen(8080);
-
-// <h1>Hello, John</h1> 
 ```
 Template:
 
@@ -43,48 +35,59 @@ Template:
 
 <h1>Hello, {name}</h1>
 ```
-As you can see, we simply write regular HTML tags inside JS code. Data is substituted via `{...}` placeholders.
+### Usage
+At the heart of `wolt` is a very simple compiler, in short, it converts HTML tags into template string:
 
-### Expression interpolation
+```js
+`<h1>Hello, ${name}</h1>`
+```
+You can use `{...}' anywhere in the tags, for example, to make dynamic tag names:
 
+```perl
+<{tag}>Hello, {name}</{tag}>
+```
 Inside `{...}` you can put any JS expression:
 
 ```jsx
-let add = (a, b) => a + b;
-
-<p>foo { add(5, 6) * 2 } baz</p> // foo 22 baz
+<p>lorem { foo(5, 6) * 2 } ipsum</p>
 ```
 
-### Conditions, loops and other
+### JSX 
 
-Use native syntax:
+It is recommended to use jsx files, but it is not necessary, you can use any files, the script only processes plain text.
+
+### Syntax:
+
+Conditions:
+```jsx
+if (user) {
+  <h2>My name is {user.name}</h2>
+}
+```
+Iteration:
 
 ```jsx
-// conditions
-if (user) {
-  <h2>My name is {user.name}, I'm {user.age} y.o.</h2>
-}
-
-// loop
 for (const i of arr) {
   <p>item is {i}</p>
 }
+```
+Function:
 
-// funtion
+```jsx
 function foo(cnt) {
   <p>{cnt}</p>
 }
-foo("hello")
-foo("world")
 
-// using variables
+foo("hello world")
+```
+That is, you can use any JS, everything will work:
+
+```jsx
 let link_about = (<a href="/about">about</a>) // html needs to be wrapped in (...) to convert to string only
 <p>
   $(link_about) // $(...) will replace and add to the main html 
 </p>
-
 ```
-You can write any JS, everything will work
 
 ### Multiline text
 
@@ -123,7 +126,9 @@ You can transfer content to another file.
 
 ```html
 <inc href="text.jsx">some content</inc>
-// or
+```
+or
+```html
 <Text>some content</Text>
 ```
 
@@ -138,20 +143,31 @@ You can also pass some parameters to another file.
 
 ```jsx
 <inc href="user.jsx" name="{user.name}" age="{user.age}"/>
-// or
+```
+or
+
+```jsx
 <User name={user.name} age={user.age}/>
-// or
-<User {...user}/> // to transfer the whole object
+// or use shorthand
+<User {...user}/>
 ```
 
 ```jsx 
-// User.jsx
+// user.jsx
 <h1>My name name is {$prop.name}, I'm {$prop.age} y.o.</h1>
 ```
 
+
+
+
+
+
+
+
+
 ## Helpers
 
-wolt.js includes some handy helpers you can use in templates:
+wolt includes some handy helpers you can use in templates:
 
 ### $html 
 
@@ -204,7 +220,7 @@ pages
 ├─ index.jsx
 ├─ about.jsx
 └─ user.jsx  
-app.html
+index.html
 app.js
 ```
 
@@ -220,7 +236,7 @@ There must be 1 `index.html` file, it is a wrapper for pages (`pages/*`), it con
 
 Add the following code to `app.js`:
 ```js
-const { router } = require('./index.js');
+const { router } = require('wolt');
 const app = require('express')();
 
 router(app, {
