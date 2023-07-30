@@ -25,11 +25,7 @@ async function render(FILE = "index.html", DATA = {}, OPT = {}) {
       OPT.encoding || "utf8"
     );
 
-    
-
     let structure = comps_structure(process.cwd(), HTML, DATA, OPT);
-
- 
 
     function traverse_comps(component, parent = null) {
       if ( !component || !component.components || component.components.length === 0 ) {
