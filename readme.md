@@ -26,7 +26,7 @@ app.get("/", async (req, res)=>{
   res.send(html)
 })
 
-app.listen(8080);
+app.listen(7500);
 ```
 Template:
 
@@ -83,14 +83,14 @@ foo("hello world")
 That is, you can use any JS, everything will work:
 
 ```jsx
-let link_about = (<a href="/about">about</a>) // html needs to be wrapped in (...) to convert to string only
+let link_about = (<a href="/about">about</a>)
 <p>
-  $(link_about) // $(...) will replace and add to the main html 
+  $(link_about)
 </p>
 ```
+The HTML needs to be wrapped in (...) to convert to string only. $(...) function that adds to the HTML at this point.
 
-#### Update!
-You can now pass data to the script with `'% data %'`, only single or double quotes can be used before and after the % signs.
+You can pass data to the script with `'% data %'`, only single or double quotes can be used before and after the % signs.
 ```html
 <script>
   alert("'% some_data %'") // `alert("${ some_data }")`
@@ -99,25 +99,29 @@ You can now pass data to the script with `'% data %'`, only single or double quo
 In JSX files syntax is not highlighted inside the script tag, to avoid this you can use special tags.
 ```jsx
 {"script"}
-  alert("'% some_data %'") // `alert("${ some_data }")`
+  alert('"% some_data %"') // `alert('${ some_data }')`
 {"/script"}
 ```
 
 ### Multiline text
 
-You cannot simply move the tag content to a new line because the script processes the code line by line:
+You can transpose tags this way, it won't be an error:
 ```jsx
 <p>
   hello 
 </p>
-// hello is not defined
 ```
-To make multiline content, wrap your content in backticks:
+But to do something like this, you have to wrap the text in backticks:
 ```jsx
 <p>
-  `Hello, my name is {user.name}.
-  I live in {user.city}.` 
+  `after`
+  <span>hello</span>
+  `before`
 </p>
+```
+Backticks do add content to this location, for example this is how you can add a doctype that gives an error in a JSX file:
+```jsx
+`<!DOCTYPE html>`
 ```
 
 ## Components
